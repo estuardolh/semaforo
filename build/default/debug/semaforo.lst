@@ -1,0 +1,174 @@
+MPASM 5.86  /HOME/ESTUARDOLH/MPLABXPROJECTS/   2-29-2020  0:33:19         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (LIST)
+                      00001 LIST    P=16F84A
+                      00002 
+  00000005            00003 PORTA                   EQU 0x05
+  00000006            00004 PORTB                   EQU 0x06
+  0000000C            00005 CONTADORCICLO           EQU 0x0C
+  0000000D            00006 CONTADORINTER           EQU 0x0D
+                      00007 
+Warning[205]: Found directive in column 1. (ORG)
+                      00008 ORG 0x00
+Warning[203]: Found opcode in column 1. (BSF)
+0000   1683           00009 BSF B'00000011',5     ; bank 1
+Warning[203]: Found opcode in column 1. (MOVLW)
+0001   3000           00010 MOVLW   B'00000000'       ; outputs
+Warning[203]: Found opcode in column 1. (MOVWF)
+0002   0086           00011 MOVWF   PORTB             ; para port B
+Warning[203]: Found opcode in column 1. (BCF)
+0003   1283           00012 BCF         B'00000011',5     ; bank 0
+                      00013 
+Warning[203]: Found opcode in column 1. (BSF)
+0004   1683           00014 BSF         B'00000011',5     ; bank 1
+Warning[203]: Found opcode in column 1. (MOVLW)
+0005   3001           00015 MOVLW   B'00000001'       ; un input
+Warning[203]: Found opcode in column 1. (MOVWF)
+0006   0085           00016 MOVWF   PORTA
+Warning[203]: Found opcode in column 1. (BCF)
+0007   1283           00017 BCF         B'00000011',5     ; bank 0
+                      00018 
+0008   1406           00019 LEDROJA BSF PORTB,0         ; pin B0
+0009   1086           00020     BCF PORTB,1
+000A   1106           00021     BCF PORTB,2    
+000B   2???           00022     CALL CICLOROJA          ; ir a ciclo
+                      00023 
+000C   1006           00024 LEDAMARILLA BCF PORTB,0
+000D   1486           00025     BSF PORTB,1               ; pin B1
+000E   1106           00026     BCF PORTB,2
+000F   2???           00027     CALL CICLOAMARILLA        ; ir a ciclo
+                      00028 
+0010   1006           00029 LEDVERDE BCF PORTB,0
+0011   1086           00030     BCF PORTB,1
+0012   1506           00031     BSF PORTB,2               ; pin B2
+0013   2???           00032     CALL CICLOVERDE           ; ir a ciclo
+                      00033 
+0014   300A           00034 CICLOROJA MOVLW B'00001010'         ; diez
+0015   008C           00035     MOVWF CONTADORCICLO       ; inicializar contador
+0016   1805           00036 CONTARROJA  BTFSC PORTA,0         ; interrumptor presionado?
+0017   2???           00037     CALL INTERVERDE   ; interrupcion a verde
+                      00038     
+0018   0B8C           00039     DECFSZ CONTADORCICLO,1    ; decrementar 1
+0019   2???           00040     GOTO CONTARROJA           ; repetir mientras mayor que cero
+001A   2???           00041     CALL LEDAMARILLA          ; cambiar a amarilla
+                      00042 
+001B   300A           00043 CICLOAMARILLA MOVLW B'00001010'           ; diez
+MPASM 5.86  /HOME/ESTUARDOLH/MPLABXPROJECTS/   2-29-2020  0:33:19         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+001C   008C           00044     MOVWF CONTADORCICLO                   ; inicializar contador
+001D   0B8C           00045 CONTARAMARILLA  DECFSZ CONTADORCICLO,1    ; decrementar 1
+001E   2???           00046     GOTO CONTARAMARILLA                   ; repetir mientras mayor que cero
+001F   2???           00047     CALL LEDVERDE                         ; cambiar a verde
+                      00048 
+0020   300A           00049 CICLOVERDE MOVLW B'00001010'              ; diez
+0021   008C           00050     MOVWF CONTADORCICLO                   ; inicializar contador
+0022   1805           00051 CONTARVERDE  BTFSC PORTA,0                ; interrumptor presionado?
+0023   2???           00052     CALL INTERROJA                        ; interrupcion a verde
+                      00053     
+0024   0B8C           00054     DECFSZ CONTADORCICLO,1                ; decrementar 1
+0025   2???           00055     GOTO CONTARVERDE                      ; repetir mientras mayor que cero
+0026   2???           00056     CALL LEDROJA                          ; cambiar a roja
+0027   0A8D           00057 INTERVERDE INCF CONTADORINTER,f
+0028   180D           00058     BTFSC CONTADORINTER,0
+0029   1586           00059     BSF PORTB,3
+002A   0000           00060     NOP
+002B   1C0D           00061     BTFSS CONTADORINTER,0
+002C   1186           00062     BCF PORTB,3
+002D   0000           00063     NOP
+                      00064     
+002E   188D           00065     BTFSC CONTADORINTER,1
+002F   1606           00066     BSF PORTB,4
+0030   0000           00067     NOP
+0031   1C8D           00068     BTFSS CONTADORINTER,1
+0032   1206           00069     BCF PORTB,4
+0033   0000           00070     NOP
+                      00071     
+0034   190D           00072     BTFSC CONTADORINTER,2
+0035   1686           00073     BSF PORTB,5
+0036   0000           00074     NOP
+0037   1D0D           00075     BTFSS CONTADORINTER,2
+0038   1286           00076     BCF PORTB,5
+0039   0000           00077     NOP
+                      00078     
+003A   198D           00079     BTFSC CONTADORINTER,3
+003B   1706           00080     BSF PORTB,6
+003C   0000           00081     NOP
+003D   1D8D           00082     BTFSS CONTADORINTER,3
+003E   1306           00083     BCF PORTB,6
+003F   0000           00084     NOP
+0040   2???           00085     CALL LEDVERDE
+0041   0A8D           00086 INTERROJA INCF CONTADORINTER,f
+0042   180D           00087     BTFSC CONTADORINTER,0
+0043   1586           00088     BSF PORTB,3
+0044   0000           00089     NOP
+0045   1C0D           00090     BTFSS CONTADORINTER,0
+0046   1186           00091     BCF PORTB,3
+0047   0000           00092     NOP
+                      00093     
+0048   188D           00094     BTFSC CONTADORINTER,1
+0049   1606           00095     BSF PORTB,4
+004A   0000           00096     NOP
+MPASM 5.86  /HOME/ESTUARDOLH/MPLABXPROJECTS/   2-29-2020  0:33:19         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+004B   1C8D           00097     BTFSS CONTADORINTER,1
+004C   1206           00098     BCF PORTB,4
+004D   0000           00099     NOP
+                      00100     
+004E   190D           00101     BTFSC CONTADORINTER,2
+004F   1686           00102     BSF PORTB,5
+0050   0000           00103     NOP
+0051   1D0D           00104     BTFSS CONTADORINTER,2
+0052   1286           00105     BCF PORTB,5
+0053   0000           00106     NOP
+                      00107     
+0054   198D           00108     BTFSC CONTADORINTER,3
+0055   1706           00109     BSF PORTB,6
+0056   0000           00110     NOP
+0057   1D8D           00111     BTFSS CONTADORINTER,3
+0058   1306           00112     BCF PORTB,6
+0059   0000           00113     NOP
+005A   2???           00114     CALL LEDROJA
+Warning[205]: Found directive in column 1. (END)
+                      00115 END
+MPASM 5.86  /HOME/ESTUARDOLH/MPLABXPROJECTS/   2-29-2020  0:33:19         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CICLOAMARILLA                     0000001B
+CICLOROJA                         00000014
+CICLOVERDE                        00000020
+CONTADORCICLO                     0000000C
+CONTADORINTER                     0000000D
+CONTARAMARILLA                    0000001D
+CONTARROJA                        00000016
+CONTARVERDE                       00000022
+INTERROJA                         00000041
+INTERVERDE                        00000027
+LEDAMARILLA                       0000000C
+LEDROJA                           00000008
+LEDVERDE                          00000010
+PORTA                             00000005
+PORTB                             00000006
+__16F84A                          00000001
+__DEBUG                           
+__MPLAB_DEBUGGER_SIMULATOR        1
+
+Errors   :     0
+Warnings :    11 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
