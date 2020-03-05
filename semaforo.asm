@@ -6,39 +6,39 @@ CONTADORCICLO		EQU 0x0C
 CONTADORINTER           EQU 0x0D
 
 ORG 0x00
-BSF B'00000011',5     ; bank 1
-MOVLW	B'00000000'       ; outputs
-MOVWF   PORTB             ; para port B
-BCF	    B'00000011',5     ; bank 0
+BSF B'00000011',5           ; bank 1
+MOVLW	B'00000000'         ; outputs
+MOVWF   PORTB               ; para port B
+BCF	    B'00000011',5   ; bank 0
 
-BSF	    B'00000011',5     ; bank 1
-MOVLW   B'00000001'       ; un input
+BSF	    B'00000011',5   ; bank 1
+MOVLW   B'00000001'         ; un input
 MOVWF   PORTA
-BCF	    B'00000011',5     ; bank 0
+BCF	    B'00000011',5   ; bank 0
 
 LEDROJA BSF PORTB,0         ; pin B0
     BCF PORTB,1
     BCF PORTB,2    
-    CALL CICLOROJA          ; ir a ciclo
+    CALL CICLOROJA                        ; ir a ciclo
 
 LEDAMARILLA BCF PORTB,0
-    BSF PORTB,1               ; pin B1
+    BSF PORTB,1                           ; pin B1
     BCF PORTB,2
-    CALL CICLOAMARILLA        ; ir a ciclo
+    CALL CICLOAMARILLA                    ; ir a ciclo
 
 LEDVERDE BCF PORTB,0
     BCF PORTB,1
-    BSF PORTB,2               ; pin B2
-    CALL CICLOVERDE           ; ir a ciclo
+    BSF PORTB,2                           ; pin B2
+    CALL CICLOVERDE                       ; ir a ciclo
 
-CICLOROJA MOVLW B'00001010'         ; diez
-    MOVWF CONTADORCICLO       ; inicializar contador
-CONTARROJA  BTFSC PORTA,0         ; interrumptor presionado?
-    CALL INTERVERDE   ; interrupcion a verde
+CICLOROJA MOVLW B'00001010'               ; diez
+    MOVWF CONTADORCICLO                   ; inicializar contador
+CONTARROJA  BTFSC PORTA,0                 ; interrumptor presionado?
+    CALL INTERVERDE                       ; interrupcion a verde
     
-    DECFSZ CONTADORCICLO,1    ; decrementar 1
-    GOTO CONTARROJA           ; repetir mientras mayor que cero
-    CALL LEDAMARILLA          ; cambiar a amarilla
+    DECFSZ CONTADORCICLO,1                ; decrementar 1
+    GOTO CONTARROJA                       ; repetir mientras mayor que cero
+    CALL LEDAMARILLA                      ; cambiar a amarilla
 
 CICLOAMARILLA MOVLW B'00001010'           ; diez
     MOVWF CONTADORCICLO                   ; inicializar contador
@@ -54,7 +54,7 @@ CONTARVERDE  BTFSC PORTA,0                ; interrumptor presionado?
     DECFSZ CONTADORCICLO,1                ; decrementar 1
     GOTO CONTARVERDE                      ; repetir mientras mayor que cero
     CALL LEDROJA                          ; cambiar a roja
-INTERVERDE INCF CONTADORINTER,f
+INTERVERDE INCF CONTADORINTER,f ; cambiar a roja
     BTFSC CONTADORINTER,0
     BSF PORTB,3
     NOP
