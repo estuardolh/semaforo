@@ -1,5 +1,5 @@
 MPLINK 5.09, LINKER
-Linker Map File - Created Sat Feb 29 00:51:53 2020
+Linker Map File - Created Thu Mar  5 03:30:48 2020
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -21,31 +21,31 @@ Linker Map File - Created Sat Feb 29 00:51:53 2020
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
             CICLOAMARILLA   0x00001b    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-                CICLOROJA   0x000014    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-               CICLOVERDE   0x000020    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+                CICLOROJA   0x000020    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+               CICLOVERDE   0x000014    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
            CONTARAMARILLA   0x00001d    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-               CONTARROJA   0x000016    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-              CONTARVERDE   0x000022    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+               CONTARROJA   0x000022    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+              CONTARVERDE   0x000016    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
                 INTERROJA   0x000041    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
                INTERVERDE   0x000027    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
               LEDAMARILLA   0x00000c    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-                  LEDROJA   0x000008    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-                 LEDVERDE   0x000010    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+                  LEDROJA   0x000010    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+                 LEDVERDE   0x000008    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
 
 
 
                               Symbols - Sorted by Address
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                  LEDROJA   0x000008    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+                 LEDVERDE   0x000008    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
               LEDAMARILLA   0x00000c    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-                 LEDVERDE   0x000010    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-                CICLOROJA   0x000014    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-               CONTARROJA   0x000016    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+                  LEDROJA   0x000010    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+               CICLOVERDE   0x000014    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+              CONTARVERDE   0x000016    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
             CICLOAMARILLA   0x00001b    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
            CONTARAMARILLA   0x00001d    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-               CICLOVERDE   0x000020    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
-              CONTARVERDE   0x000022    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+                CICLOROJA   0x000020    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
+               CONTARROJA   0x000022    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
                INTERVERDE   0x000027    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
                 INTERROJA   0x000041    program     static /home/estuardolh/MPLABXProjects/semaforo.X/semaforo.asm
 
