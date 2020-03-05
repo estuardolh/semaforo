@@ -8,8 +8,6 @@ Requirements:
 
 - MPLAB X IDE
 
-- GNU/Linux OS
-
 ## Demo
 Emulation in pro teus 7 4:
 
