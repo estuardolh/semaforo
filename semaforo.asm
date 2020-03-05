@@ -16,51 +16,51 @@ MOVLW   B'00000001'         ; un input
 MOVWF   PORTA
 BCF	    B'00000011',5   ; bank 0
 
-LEDROJA BSF PORTB,0         ; pin B0
+LEDROJA BSF PORTB,0                       ; turn on pin B0
     BCF PORTB,1
     BCF PORTB,2    
-    CALL CICLOROJA                        ; ir a ciclo
+    CALL CICLOROJA                        ; go to cycle
 
 LEDAMARILLA BCF PORTB,0
-    BSF PORTB,1                           ; pin B1
+    BSF PORTB,1                           ; turn on pin B1
     BCF PORTB,2
-    CALL CICLOAMARILLA                    ; ir a ciclo
+    CALL CICLOAMARILLA                    ; go to cycle
 
 LEDVERDE BCF PORTB,0
     BCF PORTB,1
-    BSF PORTB,2                           ; pin B2
-    CALL CICLOVERDE                       ; ir a ciclo
+    BSF PORTB,2                           ; turn on pin B2
+    CALL CICLOVERDE                       ; go to cycle
 
-CICLOROJA MOVLW B'00001010'               ; diez
-    MOVWF CONTADORCICLO                   ; inicializar contador
-CONTARROJA  BTFSC PORTA,0                 ; interrumptor presionado?
-    CALL INTERVERDE                       ; interrupcion a verde
+CICLOROJA MOVLW B'00001010'               ; ten
+    MOVWF CONTADORCICLO                   ; init counter
+CONTARROJA  BTFSC PORTA,0                 ; push button pressed? then skip next
+    CALL INTERVERDE                       ; interrupt to green
     
-    DECFSZ CONTADORCICLO,1                ; decrementar 1
-    GOTO CONTARROJA                       ; repetir mientras mayor que cero
-    CALL LEDAMARILLA                      ; cambiar a amarilla
+    DECFSZ CONTADORCICLO,1                ; zero reached? then skip next
+    GOTO CONTARROJA                       ; while greater than cero
+    CALL LEDAMARILLA                      ; change to yellow
 
-CICLOAMARILLA MOVLW B'00001010'           ; diez
-    MOVWF CONTADORCICLO                   ; inicializar contador
-CONTARAMARILLA  DECFSZ CONTADORCICLO,1    ; decrementar 1
-    GOTO CONTARAMARILLA                   ; repetir mientras mayor que cero
-    CALL LEDVERDE                         ; cambiar a verde
+CICLOAMARILLA MOVLW B'00001010'           ; ten
+    MOVWF CONTADORCICLO                   ; init counter
+CONTARAMARILLA  DECFSZ CONTADORCICLO,1    ; zero reached? then skip next
+    GOTO CONTARAMARILLA                   ; while greater than cero
+    CALL LEDVERDE                         ; change to green
 
 CICLOVERDE MOVLW B'00001010'              ; diez
-    MOVWF CONTADORCICLO                   ; inicializar contador
-CONTARVERDE  BTFSC PORTA,0                ; interrumptor presionado?
-    CALL INTERROJA                        ; interrupcion a verde
+    MOVWF CONTADORCICLO                   ; init counter
+CONTARVERDE  BTFSC PORTA,0                ; push button pressed? then skip next
+    CALL INTERROJA                        ; interrupt to red
     
-    DECFSZ CONTADORCICLO,1                ; decrementar 1
-    GOTO CONTARVERDE                      ; repetir mientras mayor que cero
-    CALL LEDROJA                          ; cambiar a roja
-INTERVERDE INCF CONTADORINTER,f ; cambiar a roja
-    BTFSC CONTADORINTER,0
-    BSF PORTB,3
-    NOP
-    BTFSS CONTADORINTER,0
-    BCF PORTB,3
-    NOP
+    DECFSZ CONTADORCICLO,1                ; zero reached? then skip
+    GOTO CONTARVERDE                      ; while greater than cero
+    CALL LEDROJA                          ; change to red
+INTERVERDE INCF CONTADORINTER,f           ; increase counter
+    BTFSC CONTADORINTER,0                 ; bit one is clear? then skip next
+    BSF PORTB,3                           ; turn on bit one
+    NOP                                   ; no operation
+    BTFSS CONTADORINTER,0                 ; bit one is set? then skip next
+    BCF PORTB,3                           ; turn off bit one
+    NOP                                   ; no operation
     
     BTFSC CONTADORINTER,1
     BSF PORTB,4
